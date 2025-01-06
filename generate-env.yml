@@ -1,5 +1,5 @@
 name: Generate .env file
-
+#second try
 on:
   push:
     branches:
@@ -13,12 +13,16 @@ jobs:
       - name: Generate .env file
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
-       run: |
-          echo "ANTHROPIC_API_KEY=$ANTHROPIC_API_KEY" >> .env
-      - name: Use the .env file
-        env:
-          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         run: |
-          # Use the API keys from the .env file in your code
-          echo "ANTHROPIC_API_KEY: $ANTHROPIC_API_KEY"
-
+          echo "ANTHROPIC_API_KEY=$ANTHROPIC_API_KEY" >> .env
+      - name: Commit .env file
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add .env
+          git commit -m "Generate .env file"
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: development
