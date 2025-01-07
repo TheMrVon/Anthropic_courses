@@ -28,12 +28,17 @@ jobs:
           echo "ANTHROPIC_API_KEY=${{ secrets.ANTHROPIC_API_KEY }}" > .env
           echo ".env file generated successfully."
 
+      - name: Upload .env file as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: env-file
+          path: .env
+
       - name: List files (for debugging)
         run: ls -la
 
       - name: Use .env file (example)
         run: |
-          # Load the .env file and use the API key
           export $(grep -v '^#' .env | xargs)
           echo "API key loaded: $ANTHROPIC_API_KEY"
 
