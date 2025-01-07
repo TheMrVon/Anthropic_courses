@@ -1,28 +1,35 @@
-name: Generate .env file
-#second try
+# This workflow will generate a .env file and populate it with  
+# the anthropic API key from repository secrets.
+
+name: Generate .env File
+
 on:
+  workflow_dispatch:  # Allows manual triggering of the workflow
   push:
     branches:
-      - development
+      - main  # Trigger on push to the main branch
 
 jobs:
   generate-env:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v2
-      - name: Generate .env file
-        env:
-          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Create .env file
         run: |
-          echo "ANTHROPIC_API_KEY=$ANTHROPIC_API_KEY" >> .env
-      - name: Commit .env file
+          echo "ANTHROPIC_API_KEY=${{ secrets.ANTHROPIC_API_KEY }}" > .env
+          echo ".env file generated successfully."
+
+      - name: List files (for debugging)
+        run: ls -la
+
+      - name: Use .env file (example)
         run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
-          git add .env
-          git commit -m "Generate .env file"
-      - name: Push changes
-        uses: ad-m/github-push-action@master
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          branch: development
+          # Example: Load the .env file and use the API key
+          source .env
+          echo "API key loaded: $ANTHROPIC_API_KEY"
+
+      - name: Clean up .env file
+        # run: rm .env  # Remove the .env file to ensure it's not committed
