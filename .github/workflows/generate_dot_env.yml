@@ -1,4 +1,4 @@
-name: Generate .env File
+name: Generate api_keys.env File
 
 on:
   workflow_dispatch:  # Allows manual triggering of the workflow
@@ -23,25 +23,20 @@ jobs:
             echo "ANTHROPIC_API_KEY is set."
           fi
 
-      - name: Create .env file
+      - name: Create api_keys.env file
         run: |
-          echo "ANTHROPIC_API_KEY=${{ secrets.ANTHROPIC_API_KEY }}" >> junk.txt
-          echo ".env file generated successfully."
+          echo "ANTHROPIC_API_KEY=${{ secrets.ANTHROPIC_API_KEY }}" >> api_keys.env
+          echo "api_keys.env file generated successfully."
 
-      - name: Upload .env file as artifact
+      - name: Upload api_keys.env file as artifact
         uses: actions/upload-artifact@v4
         with:
           name: env-file
-          path: junk.txt
+          path: api_keys.env
 
       - name: List files (for debugging)
         run: ls -la
 
-      - name: Use .env file (example)
-        run: |
-          export $(grep -v '^#' .env | xargs)
-          echo "API key loaded: $ANTHROPIC_API_KEY"
-
-      #- name: Clean up .env file
-        #run: rm .env  # Remove the .env file to ensure it's not committed
+      - name: Clean up .env file
+        run: rm *.env  # Remove the .env file to ensure it's not committed
         
