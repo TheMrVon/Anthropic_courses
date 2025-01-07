@@ -32,10 +32,10 @@ jobs:
         run: ls -la
 
       - name: Use .env file (example)
-        env:
-          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         run: |
+          # Load the .env file and use the API key
+          export $(grep -v '^#' .env | xargs)
           echo "API key loaded: $ANTHROPIC_API_KEY"
 
       - name: Clean up .env file
-        #run: rm .env  # Remove the .env file to ensure it's not committed
+        run: rm .env  # Remove the .env file to ensure it's not committed
