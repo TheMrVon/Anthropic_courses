@@ -25,7 +25,7 @@ jobs:
 
       - name: Create .env file
         run: |
-          echo "ANTHROPIC_API_KEY=${{ secrets.ANTHROPIC_API_KEY }}" > .env
+          echo "ANTHROPIC_API_KEY=${{ secrets.ANTHROPIC_API_KEY }}" >> .env
           echo ".env file generated successfully."
 
       - name: Upload .env file as artifact
@@ -42,5 +42,6 @@ jobs:
           export $(grep -v '^#' .env | xargs)
           echo "API key loaded: $ANTHROPIC_API_KEY"
 
-      - name: Clean up .env file
-        run: rm .env  # Remove the .env file to ensure it's not committed
+      #- name: Clean up .env file
+        #run: rm .env  # Remove the .env file to ensure it's not committed
+        
