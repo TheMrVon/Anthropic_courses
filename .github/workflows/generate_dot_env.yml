@@ -25,14 +25,14 @@ jobs:
 
       - name: Create .env file
         run: |
-          echo "ANTHROPIC_API_KEY=${{ secrets.ANTHROPIC_API_KEY }}" >> .env
+          echo "ANTHROPIC_API_KEY=${{ secrets.ANTHROPIC_API_KEY }}" >> junk.txt
           echo ".env file generated successfully."
 
       - name: Upload .env file as artifact
         uses: actions/upload-artifact@v4
         with:
           name: env-file
-          path: .env
+          path: junk.txt
 
       - name: List files (for debugging)
         run: ls -la
