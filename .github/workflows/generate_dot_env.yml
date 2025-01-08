@@ -35,6 +35,11 @@ jobs:
           #chmod 644 .env
           echo "api_keys.env file generated successfully."
 
+      - name: Debug before upload
+        run: |
+          echo "Current directory: $(pwd)"
+          find . -name ".env" -type f
+          cat .env  
       - name: Upload api_keys.env file as artifact
         uses: actions/upload-artifact@v4
         with:
