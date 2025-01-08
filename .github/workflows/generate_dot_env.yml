@@ -25,18 +25,19 @@ jobs:
 
       - name: Create api_keys.env file
         run: |
-          echo "ANTHROPIC_API_KEY=${{ secrets.ANTHROPIC_API_KEY }}" >> api_keys.env
+          echo "ANTHROPIC_API_KEY=${{ secrets.ANTHROPIC_API_KEY }}" >> .env
+          chmod 644 .env  # Ensure file is readable
           echo "api_keys.env file generated successfully."
 
       - name: Upload api_keys.env file as artifact
         uses: actions/upload-artifact@v4
         with:
           name: env-file
-          path: api_keys.env
+          path: .env
 
       - name: List files (for debugging)
         run: ls -la
 
       - name: Clean up .env file
-        run: rm *.env  # Remove the .env file to ensure it's not committed
+        run: rm .env  # Remove the .env file to ensure it's not committed
         
