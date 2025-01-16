@@ -1,6 +1,6 @@
 {
   "name": "Python Codespace",
-  "image": "mcr.microsoft.com/devcontainers/universal:latest",
+  "image": "mcr.microsoft.com/devcontainers/python:3.12",
   "features": {
     "python": "latest"
   },
