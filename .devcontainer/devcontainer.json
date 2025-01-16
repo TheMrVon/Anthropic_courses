@@ -1,6 +1,6 @@
 {
   "name": "Python Codespace",
-  "image": "mcr.microsoft.com/devcontainers/python:3.12",
+  "image": "mcr.microsoft.com/devcontainers/python",
   "features": {
     "python": "latest"
   },
@@ -9,7 +9,6 @@
   },
   "waitFor": "onCreateCommand",
   "updateContentCommand": "python3 -m pip install -r requirements.txt",
-  "postCreateCommand": "pip install --upgrade pip && pip install numpy pandas requests", // Add any other modules you need
   "customizations": {
     "codespaces": {
       "openFiles": []
