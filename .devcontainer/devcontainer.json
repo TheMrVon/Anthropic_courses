@@ -1,11 +1,15 @@
 {
-  "image": "mcr.microsoft.com/devcontainers/universal:2",
+  "name": "Python Codespace",
+  "image": "mcr.microsoft.com/devcontainers/universal:latest",
+  "features": {
+    "python": "latest"
+  },
   "hostRequirements": {
     "cpus": 4
   },
   "waitFor": "onCreateCommand",
   "updateContentCommand": "python3 -m pip install -r requirements.txt",
-  "postCreateCommand": "",
+  "postCreateCommand": "pip install --upgrade pip && pip install numpy pandas requests", // Add any other modules you need
   "customizations": {
     "codespaces": {
       "openFiles": []
